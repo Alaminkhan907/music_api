@@ -1,10 +1,15 @@
 const searchSong = async()=>{
     const searchText = document.getElementById("search-field").value;
+    try {
     const url = `https://api.lyrics.ovh/suggest/${searchText}`
     //load data
     const res = await fetch(url)
     const data =await res.json();
     displaySongs(data.data);
+    }
+    catch (error){
+        displayError('Something went wrong !! please try 100 years later');
+    }
 }
 const displaySongs = songs=>{
     const songContainer = document.getElementById('song-container');
@@ -29,12 +34,21 @@ const displaySongs = songs=>{
     });
 }
 const getLyric = async (artist , title)=>{
+    try {
     const url =`https://api.lyrics.ovh/v1/${artist}/${title}`;
     const res =await fetch(url);
     const data = await res.json();
     displayLyrics(data.lyrics);
+    }
+    catch (error){
+        displayError('lyrics is not found for this song');
+    }
 }
 const displayLyrics = lyrics=>{
     const lyricsDiv = document.getElementById('song-lyrics')
     lyricsDiv.innerText = lyrics;
+}
+const displayError = err=>{
+    const errTag =document.getElementById('error-message');
+    errTag.innerText=err;
 }
