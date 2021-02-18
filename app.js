@@ -7,10 +7,20 @@ const searchSong = ()=>{
     .then(data=>displaySongs(data.data))
 }
 const displaySongs = songs=>{
-    const songDiv = document.getElementById('song-container');
+    const songContainer = document.getElementById('song-container');
     songs.forEach(song => {
-        const li = document.createElement('li');
-        li.innerText=song.title;
-        songDiv.appendChild(li);
+        //console.log(song);
+        const songDiv = document.createElement('li');
+        songDiv.className ='single-result row align-items-center my-3 p-3'
+        songDiv.innerHTML=`
+        <div class="col-md-9">
+              <h3 class="lyrics-name">${song.title}</h3>
+              <p class="author lead">Album by <span>${song.artist.name}</span></p>
+        </div>
+        <div class="col-md-3 text-md-right text-center">
+              <button class="btn btn-success">Get Lyrics</button>
+        </div>
+        `;
+        songContainer.appendChild(songDiv);
     });
 }
