@@ -12,14 +12,20 @@ const searchSong = async()=>{
         displayError('Something went wrong !! please try 100 years later');
     }
 }
-const displaySongs = songs=>{
+document.getElementById('search-field')
+    .addEventListener("keypress", function(event) {
+        if (event.key === 'Enter') {
+            document.getElementById("search-button").click();
+        }
+});
+function displaySongs(songs) {
     const songContainer = document.getElementById('song-container');
-    songContainer.innerHTML ='';
+    songContainer.innerHTML = '';
     songs.forEach(song => {
         //console.log(song);
         const songDiv = document.createElement('li');
-        songDiv.className ='single-result row align-items-center my-3 p-3'
-        songDiv.innerHTML=`
+        songDiv.className = 'single-result row align-items-center my-3 p-3';
+        songDiv.innerHTML = `
         <div class="col-md-9">
               <h3 class="lyrics-name">${song.title}</h3>
               <p class="author lead">Album by <span>${song.artist.name}</span></p>
